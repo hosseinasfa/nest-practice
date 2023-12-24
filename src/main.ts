@@ -1,9 +1,11 @@
-import { Controller, Get } from "@nestjs/common";
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
 
-@Controller()
-class AppController {
-    @Get()
-    getRootRoute() {
-        return "webprog.io";
-    }
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    app.useGlobalPipes(new ValidationPipe())
+    await app.listen(3000);
 }
+
+bootstrap();
